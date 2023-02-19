@@ -1,0 +1,18 @@
+<html>
+
+<head>
+    <title>Item Details</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Item ID: {{ id }}</h1>
+    </div>
+
+</body>
+<script src="{{ url_for('static', path='/bootstrap/bootstrap.bundle.min.js') }}"></script>
+
+</html>

@@ -1,0 +1,35 @@
+<html>
+
+<head>
+    <title>Item Details</title>
+    <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/leaflet/leaflet.css') }}" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Карта</h1>
+        <div class="row">
+            <div class="col">
+                <div id="map" class="map"></div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+<script src="{{ url_for('static', path='/bootstrap/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ url_for('static', path='/leaflet/leaflet.js') }}"></script>
+
+<script>
+    var map = L.map('map').setView([61.31550, 63.33332], 13);
+    // https://tile.openstreetmap.org/{z}/{x}/{y}.png'
+    L.tileLayer('/tiles/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '(C) 2023 Local Map'
+    }).addTo(map);
+</script>
+
+</html>
