@@ -6,7 +6,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
 BASE_DIR = os.path.realpath(os.path.dirname(__file__))
-DEFAULT_IMAGE = 'static/0.png'
+DEFAULT_IMAGE = 'static/none.png'
 
 app = FastAPI()
 

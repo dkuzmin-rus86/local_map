@@ -4,7 +4,7 @@
     <title>Item Details</title>
     <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', path='/bootstrap/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', path='/leaflet/leaflet.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', path='/ol/ol.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -21,15 +21,45 @@
 
 </body>
 <script src="{{ url_for('static', path='/bootstrap/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ url_for('static', path='/leaflet/leaflet.js') }}"></script>
+<script src="{{ url_for('static', path='/ol/ol.js') }}"></script>
 
 <script>
-    var map = L.map('map').setView([61.31550, 63.33332], 13);
-    // https://tile.openstreetmap.org/{z}/{x}/{y}.png'
-    L.tileLayer('/tiles/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '(C) 2023 Local Map'
-    }).addTo(map);
+    var attribution = new ol.control.Attribution({
+        collapsible: false
+    });
+
+    // https://tile.openstreetmap.org/{z}/{x}/{y}.png
+    var map = new ol.Map({
+        controls: ol.control.defaults.defaults({
+            attribution: false
+        }).extend([attribution]),
+        layers: [
+            new ol.layer.Tile({
+                source: new ol.source.OSM({
+                    url: '/tiles/{z}/{x}/{y}.png',
+                    attributions: [],
+                    maxZoom: 18
+                })
+            })
+        ],
+        target: 'map',
+        view: new ol.View({
+            center: ol.proj.fromLonLat([63.33332, 61.31550]),
+            maxZoom: 18,
+            zoom: 12
+        })
+    });
+
+    var layer = new ol.layer.Vector({
+        source: new ol.source.Vector({
+            features: [
+                new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.fromLonLat([63.33332, 61.31550]))
+                })
+            ]
+        })
+    });
+    map.addLayer(layer);
 </script>
 
 </html>
